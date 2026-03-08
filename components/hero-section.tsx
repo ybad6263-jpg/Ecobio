@@ -37,7 +37,7 @@ export default function HeroSection({ onStart }: HeroSectionProps) {
     >
       <motion.div className="text-center max-w-2xl" variants={itemVariants}>
         <motion.h1
-          className="text-5xl md:text-4xl font-bold tracking-tight mb-4"
+          className="text-3xl md:text-3xl font-bold tracking-tight mb-4"
           variants={itemVariants}
         >
           <span className="bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">
