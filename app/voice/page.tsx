@@ -1,33 +1,32 @@
 import { Suspense } from 'react';
 import VoiceClientUI from './voice-client-ui';
-import { createClient } from '../utils/supabase/server';
+import { createClient } from '../utils/supabase/server'; // Ensure this utility is correct
 
 export const revalidate = 0;
+export const dynamic = 'force-dynamic';
 
-// This is the SERVER component
 export default async function VoicePage() {
   const supabase = await createClient();
-  const { data, error } = await supabase.from('topics').select('*');
-console.log("Supabase Data:", data);
-console.log("Supabase Error:", error);
-  
-  // Fetch topics directly on the server
-  const { data: topics } = await supabase
+
+  // Optimized Fetch
+  const { data: topics, error } = await supabase
     .from('topics')
-    .select('* , content , comments(id)')
+    .select(`
+      *,
+      comments (id)
+    `)
     .order('created_at', { ascending: false });
 
-
-console.log("--- DEBUG START ---");
-console.log("Topics Data:", JSON.stringify(data));
-console.log("Error Object:", error);
-console.log("URL Check:", process.env.NEXT_PUBLIC_SUPABASE_URL?.substring(0, 10));
-console.log("--- DEBUG END ---");
+  // Log exactly what the server sees
+  console.log("--- SERVER DEBUG ---");
+  if (error) console.error("Supabase Error:", error.message);
+  console.log("Number of topics found:", topics?.length || 0);
+  console.log("--- END DEBUG ---");
 
   return (
     <main className="min-h-screen bg-background">
-      {/* We pass the topics we found into the Client UI */}
-      <Suspense fallback={<div className="p-10 text-center">Loading...</div>}>
+      <Suspense fallback={<div className="p-10 text-center text-muted-foreground animate-pulse">Loading Discussions...</div>}>
+        {/* Pass the data to the client component */}
         <VoiceClientUI initialTopics={topics || []} />
       </Suspense>
     </main>
