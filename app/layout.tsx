@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
+import TopNav from '@/components/top-nav'
 
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -38,7 +39,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-sans antialiased">
-        {children}
+        <TopNav />
+        {/* pt-20 for mobile, pt-28 for desktop to clear the floating nav */}
+        <main className="pt-20 md:pt-28 min-h-screen">
+          {children}
+        </main>
         <Analytics />
       </body>
     </html>
