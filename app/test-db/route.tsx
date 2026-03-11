@@ -1,28 +1,43 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
 
-export async function GET() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-
-  // Log to Vercel "Functions" logs (Server-side)
-  console.log('--- DB TEST ---');
-  console.log('URL:', supabaseUrl);
-  console.log('Key Length:', supabaseKey?.length);
-
+// Helper to decode the JWT without libraries
+function decodeJWT(token: string) {
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey);
-    
-    // Replace 'your_table_name' with an actual table from your DB, e.g., 'posts' or 'profiles'
-    const { data, error } = await supabase.from('topics').select('*').limit(1);
-
-    if (error) {
-      console.error('Supabase Error:', error);
-      return NextResponse.json({ status: 'error', message: error.message }, { status: 500 });
-    }
-
-    return NextResponse.json({ status: 'success', data: data });
-  } catch (err: any) {
-    return NextResponse.json({ status: 'crash', message: err.message }, { status: 500 });
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+  } catch (e) {
+    return { error: 'Could not decode key' };
   }
+}
+
+export async function GET() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  // 1. Extract Project ID from the URL
+  // e.g., "https://abcdefghijklmnop.supabase.co" -> "abcdefghijklmnop"
+  const urlProjectId = supabaseUrl ? supabaseUrl.replace('https://', '').split('.')[0] : 'URL MISSING';
+
+  // 2. Decode the Key to find the Project ID inside it
+  const decodedKey = supabaseKey ? decodeJWT(supabaseKey) : {};
+  const keyProjectId = decodedKey.ref || decodedKey.project_id || 'KEY MISSING OR INVALID';
+
+  // 3. Compare them
+  const isMatch = urlProjectId === keyProjectId;
+
+  return NextResponse.json({
+    diagnostic: {
+      url_project_id: urlProjectId,
+      key_project_id: keyProjectId,
+      ids_match: isMatch,
+    },
+    error_check: {
+      message: isMatch ? "IDs Match! The credentials are correct pairs." : "MISMATCH! The Key belongs to a different project than the URL."
+    }
+  });
 }
