@@ -47,8 +47,8 @@ export async function postTopic(formData: FormData) {
         title, 
         category, 
         content, 
-        author: authorName, 
-        author_id: authorId 
+        author_name: authorName, 
+        //author_id: authorId 
       }
     ]);
 

@@ -3,6 +3,8 @@ import { createClient } from '../../utils/supabase/server';
 import { notFound } from 'next/navigation';
 import ThreadClientUI from './thread-client-ui';
 
+
+
 export default async function ThreadPage({ 
   params 
 }: { 
