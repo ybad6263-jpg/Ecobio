@@ -145,13 +145,13 @@ const handleSaveName = () => {
     <div className="flex items-start gap-3 mb-4">
       {/* THE COLORFUL AVATAR */}
       <div className={`mt-1 h-8 w-8 rounded-full flex items-center justify-center text-white font-bold shadow-sm ${getColorForUser(comment.author_id)}`}>
-        {comment.author_name?.charAt(0) || 'A'}
+        {comment.author?.charAt(0) || 'A'}
       </div>
 
       <div className="flex-1 rounded-2xl border border-border bg-card p-4 shadow-sm">
         <div className="flex items-center justify-between mb-1">
           <span className="text-xs font-bold text-foreground">
-            {comment.author_name}
+            {comment.author}
           </span>
           <span className="text-[10px] text-muted-foreground">
             {formatDistanceToNow(new Date(comment.created_at), { addSuffix: true })}

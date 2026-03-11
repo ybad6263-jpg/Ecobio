@@ -20,7 +20,7 @@ export async function postComment(formData: FormData) {
     .insert([{ 
         topic_id: topicId, 
         content: content, 
-        author_name: author 
+        author: author 
     }]);
 
   if (error) {
@@ -47,7 +47,7 @@ export async function postTopic(formData: FormData) {
         title, 
         category, 
         content, 
-        author_name: authorName, 
+        author: authorName, 
         author_id: authorId 
       }
     ]);
