@@ -14,7 +14,7 @@ export async function GET() {
     const supabase = createClient(supabaseUrl, supabaseKey);
     
     // Replace 'your_table_name' with an actual table from your DB, e.g., 'posts' or 'profiles'
-    const { data, error } = await supabase.from('your_table_name').select('*').limit(1);
+    const { data, error } = await supabase.from('topics').select('*').limit(1);
 
     if (error) {
       console.error('Supabase Error:', error);
