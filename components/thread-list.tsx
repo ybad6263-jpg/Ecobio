@@ -15,7 +15,7 @@ interface ThreadListProps {
 export function ThreadList({ initialThreads = [] }: ThreadListProps) {
   // 2. Initialize state with the props we got from the Server
   const [threads, setThreads] = useState<Thread[]>(initialThreads);
-  const [isLoading, setIsLoading] = useState(true); // No need to load if we have initial data
+  const [isLoading, setIsLoading] = useState(false); // No need to load if we have initial data
 
   // Keep your polling logic if you want it to check for new updates
   useEffect(() => {
