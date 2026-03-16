@@ -97,14 +97,14 @@ export default function ResultScreen({ result, onRetake }: ResultScreenProps) {
              </div>
           </motion.div>
 
-          {/* --- SPONSORED PLACEMENT --- */}
-<motion.div 
+          {/* --- SPONSORED PLACEMENT 
+          <motion.div 
   className="mt-8 p-6 rounded-2xl bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-200 shadow-sm"
   variants={itemVariants}
 >
   <div className="flex items-start gap-4">
     <div className="w-12 h-12 rounded-lg bg-white flex items-center justify-center shadow-sm shrink-0">
-      <span className="text-xl">🏫</span> {/* Replace with Partner Logo */}
+      <span className="text-xl">🏫</span> {/* Replace with Partner Logo 
     </div>
     <div className="flex-1">
       <span className="text-[10px] font-bold uppercase tracking-widest text-orange-600 mb-1 block">
@@ -120,6 +120,8 @@ export default function ResultScreen({ result, onRetake }: ResultScreenProps) {
     </div>
   </div>
 </motion.div>
+          --- */}
+
 
           {/* Explanation Text */}
           <motion.div className="border-t border-border pt-8 mb-10" variants={itemVariants}>
