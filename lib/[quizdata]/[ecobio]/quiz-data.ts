@@ -1,3 +1,4 @@
+
 export interface Question {
   id: number;
   text: string;
@@ -15,6 +16,7 @@ export interface QuizResult {
   economics: number;
   totalScore: number;
 }
+
 
 export const quizQuestions: Question[] = [
   {

@@ -64,7 +64,7 @@ export default function TopNav() {
 
           {/* Minimal placeholder for balance */}
           <div className="w-8 h-8 rounded-full bg-accent/5 flex items-center justify-center sm:hidden">
-             <span className="text-[10px] font-bold">A</span>
+             <span className="text-[10px] font-bold">MMSI</span>
           </div>
         </div>
       </div>

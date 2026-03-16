@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Question } from "@/lib/quiz-data";
+import { Question } from "@/lib/[quizdata]/[ecobio]/quiz-data";
 import ProgressBar from "./progress-bar";
 
 interface QuizCardProps {

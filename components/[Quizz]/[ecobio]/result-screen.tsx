@@ -3,7 +3,7 @@
 import { useState } from "react"; // Added for copy success state
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { QuizResult, getResultMessage } from "@/lib/quiz-data";
+import { QuizResult, getResultMessage } from "@/lib/[quizdata]/[ecobio]/quiz-data";
 import { Share2, Copy, Check, Facebook } from "lucide-react"; // Added icons
 
 interface ResultScreenProps {
